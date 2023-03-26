@@ -1,0 +1,63 @@
+version: "3"
+
+networks:
+  laravel:
+
+  nginx_network-apps:
+    external: true
+
+services:
+  app:
+    build:
+      context: ./dockerfiles
+      dockerfile: php.dockerfile
+    container_name: php-{{nameApp}}
+    ports:
+      - 9000:9000
+    volumes:
+      - ./:/var/www/{{nameApp}}:delegated
+    networks:
+      laravel:
+
+      nginx_network-apps:
+        aliases:
+          - php-{{nameApp}}
+
+  composer:
+    build:
+      context: ./dockerfiles
+      dockerfile: composer.dockerfile
+    container_name: composer
+    volumes:
+      - ./:/var/www/{{nameApp}}
+    working_dir: /var/www/{{nameApp}}
+    depends_on:
+      - app
+    entrypoint: ["composer", "--ignore-platform-reqs"]
+    networks:
+      - laravel
+
+  npm:
+    image: node:18
+    container_name: npm
+    volumes:
+      - ./:/var/www/{{nameApp}}
+    ports:
+      - 3000:3000
+      - 3001:3001
+    working_dir: /var/www/{{nameApp}}
+    entrypoint: ["npm"]
+    networks:
+      - laravel
+
+  artisan:
+    build:
+      context: ./dockerfiles
+      dockerfile: php.dockerfile
+    container_name: artisan
+    volumes:
+      - ./:/var/www/{{nameApp}}:delegated
+    working_dir: /var/www/{{nameApp}}
+    entrypoint: ["php", "/var/www/{{nameApp}}/artisan"]
+    networks:
+      - laravel
