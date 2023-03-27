@@ -1,3 +1,9 @@
+/**
+ * Autor: Leonel López
+ * E-mail: lalopez@cultura.gob.sv
+ * Fecha: 26/03/2023
+ */
+
 import { outro } from "@clack/prompts";
 import colors from "picocolors";
 

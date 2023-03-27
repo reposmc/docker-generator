@@ -9,3 +9,7 @@
 ## Utilizar el script
 
     npx mcdocgen
+
+#### Creado por
+
+Leonel López - Ministerio de Cultura

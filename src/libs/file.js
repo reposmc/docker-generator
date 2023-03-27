@@ -1,3 +1,9 @@
+/**
+ * Autor: Leonel López
+ * E-mail: lalopez@cultura.gob.sv
+ * Fecha: 26/03/2023
+ */
+
 import fs from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
