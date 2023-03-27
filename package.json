@@ -1,5 +1,7 @@
 {
   "name": "mcdocgen",
+  "author": "Leonel López",
+  "email": "lalopez@cultura.gob.sv",
   "version": "1.0.1",
   "description": "",
   "type": "module",
@@ -14,7 +16,6 @@
     "start": "node src/index.js"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "devDependencies": {
     "mcdocgen": "file://."
