@@ -79,7 +79,7 @@ export const setContentInFile = (content, valuesToReplace) => {
 export const createFile = (file, nameFile, nameApp) => {
   const nameFileGenerated = nameFile.replaceAll(".stub", "");
   const pathStubs = file.path.replaceAll(".stub", "");
-  const generatedPath = path.join(`${process.cwd()}/generated/${pathStubs}/..`);
+  const generatedPath = path.join(`${process.cwd()}/${pathStubs}/..`);
 
   //   Verify if the directory exists
   if (!fs.existsSync(generatedPath))
