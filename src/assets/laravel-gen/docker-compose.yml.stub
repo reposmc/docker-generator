@@ -3,7 +3,7 @@ version: "3"
 networks:
   laravel:
 
-  nginx_network-apps:
+  nginx:
     external: true
 
 services:
@@ -20,7 +20,7 @@ services:
     networks:
       laravel:
 
-      nginx_network-apps:
+      nginx:
         aliases:
           - php-{{nameApp}}
 
