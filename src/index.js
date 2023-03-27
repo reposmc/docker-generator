@@ -59,6 +59,7 @@ switch (typeApp) {
       "composer.dockerfile",
       "nginx.dockerfile",
       "php.dockerfile",
+      "resolv.conf",
     ];
 
     const valuesToReplace = [
