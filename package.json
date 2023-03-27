@@ -1,16 +1,24 @@
 {
-  "name": "docker-generator",
+  "name": "mcdg",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "type": "module",
+  "bin": {
+    "mcdg": "./src/bin.js"
+  },
+  "main": "index.js",
+  "preferGlobal": true,
   "scripts": {
+    "mc": "mcdg",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/index.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "mcdg": "file://."
+  },
   "dependencies": {
     "@clack/prompts": "^0.6.3",
     "picocolors": "^1.0.0"
