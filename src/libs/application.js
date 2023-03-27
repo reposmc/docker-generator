@@ -8,7 +8,7 @@ export const typeApplications = () => {
   return [
     {
       label: "Laravel",
-      value: "laravel",
+      value: "laravel-gen",
     },
     // {
     //   label: "NodeJS",

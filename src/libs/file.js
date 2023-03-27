@@ -8,7 +8,8 @@ import fs from "fs";
 import { fileURLToPath } from "url";
 import path from "path";
 import { outro } from "@clack/prompts";
-import util from "util";
+import { exit } from "process";
+import colors from "picocolors";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -33,7 +34,23 @@ export const readContentFile = async (nameFile, typeApp) => {
     // Get the file contents
     let content = await fs.promises.readFile(filesFound[0]);
 
-    return content.toString();
+    const path = filesFound[0].split(typeApp);
+    if (path.length > 2) {
+      outro(
+        colors.red(
+          `🛑  Error: Existe más de una carpeta o archivo con el nombre de ${colors.yellow(
+            "laravel-gen"
+          )}, esta es una palabra reservada del script`
+        )
+      );
+
+      exit(1);
+    }
+
+    return {
+      path: path[1],
+      content: content.toString(),
+    };
   }
 };
 
@@ -55,18 +72,26 @@ export const setContentInFile = (content, valuesToReplace) => {
 /**
  * Creates the from the name file and the content has been replaced in the template.
  *
- * @param {String} content
+ * @param {Object} content
  * @param {String} nameFile
  * @param {String} nameApp
  */
-export const createFile = (content, nameFile, nameApp) => {
-  const generatedPath = path.join(process.cwd(), "/generated");
+export const createFile = (file, nameFile, nameApp) => {
+  const nameFileGenerated = nameFile.replaceAll(".stub", "");
+  const pathStubs = file.path.replaceAll(".stub", "");
+  const generatedPath = path.join(`${process.cwd()}/generated/${pathStubs}/..`);
 
   //   Verify if the directory exists
-  if (!fs.existsSync(generatedPath)) fs.mkdirSync(generatedPath);
+  if (!fs.existsSync(generatedPath))
+    fs.mkdirSync(generatedPath, { recursive: true }, (err) => {
+      if (err) throw err;
+    });
 
   //   Creating file
-  fs.writeFileSync(path.join(generatedPath, `/${nameFile}`), content);
+  fs.writeFileSync(
+    path.join(generatedPath, `/${nameFileGenerated}`),
+    file.content
+  );
 };
 
 /**

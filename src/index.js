@@ -44,7 +44,7 @@ if (isCancel(nameApp)) exitProgram();
 
 // Creating the files depending on the type of project
 switch (typeApp) {
-  case "laravel":
+  case "laravel-gen":
     // Requesting subdomain
     const subDomain = await text({
       message: colors.cyan("Ingresa el subdominio:"),
@@ -73,9 +73,10 @@ switch (typeApp) {
     ];
 
     nameFiles.forEach(async (nameFile) => {
-      let content = await readContentFile(nameFile, typeApp);
-      content = await setContentInFile(content, valuesToReplace);
-      await createFile(content, nameFile, nameApp);
+      let file = await readContentFile(nameFile, typeApp);
+      // console.log(file);
+      file.content = await setContentInFile(file.content, valuesToReplace);
+      await createFile(file, nameFile, nameApp);
 
       await outro(
         colors.green(
