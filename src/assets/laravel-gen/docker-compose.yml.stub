@@ -1,42 +1,32 @@
 version: "3"
 
 networks:
-  laravel:
-
   nginx:
     external: true
 
 services:
   app:
-    build:
-      context: ./dockerfiles
-      dockerfile: php.dockerfile
+    image: cyberduck/php-fpm-laravel:8.2
     container_name: php-{{nameApp}}
-    ports:
-      - 9000:9000
+    expose:
+      - 9000
     volumes:
       - ./:/var/www/{{nameApp}}:delegated
       - ./dockerfiles/resolv.conf:/etc/resolv.conf:ro
     networks:
-      laravel:
-
       nginx:
         aliases:
           - php-{{nameApp}}
 
   composer:
-    build:
-      context: ./dockerfiles
-      dockerfile: composer.dockerfile
+    image: cyberduck/php-fpm-laravel:8.2
     container_name: composer
     volumes:
       - ./:/var/www/{{nameApp}}
     working_dir: /var/www/{{nameApp}}
     depends_on:
       - app
-    entrypoint: ["composer", "--ignore-platform-reqs"]
-    networks:
-      - laravel
+    entrypoint: ["composer"]
 
   npm:
     image: node:18
@@ -48,17 +38,11 @@ services:
       - 3001:3001
     working_dir: /var/www/{{nameApp}}
     entrypoint: ["npm"]
-    networks:
-      - laravel
 
   artisan:
-    build:
-      context: ./dockerfiles
-      dockerfile: php.dockerfile
+    image: cyberduck/php-fpm-laravel:8.2
     container_name: artisan
     volumes:
       - ./:/var/www/{{nameApp}}:delegated
     working_dir: /var/www/{{nameApp}}
     entrypoint: ["php", "/var/www/{{nameApp}}/artisan"]
-    networks:
-      - laravel
