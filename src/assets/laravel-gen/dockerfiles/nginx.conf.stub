@@ -4,6 +4,10 @@ server {
     server_name {{subDomain}};
     root /var/www/{{nameApp}}/public;
 
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
     location / {
         return 301 https://{{subDomain}}$request_uri;
     }

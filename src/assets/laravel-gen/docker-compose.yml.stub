@@ -8,11 +8,11 @@ services:
   app:
     image: cyberduck/php-fpm-laravel:8.2
     container_name: php-{{nameApp}}
+    restart: always
     expose:
       - 9000
     volumes:
       - ./:/var/www/{{nameApp}}:delegated
-      - ./dockerfiles/resolv.conf:/etc/resolv.conf:ro
     networks:
       nginx:
         aliases:
