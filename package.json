@@ -2,7 +2,7 @@
   "name": "mcdocgen",
   "author": "Leonel López",
   "email": "lalopez@cultura.gob.sv",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "",
   "type": "module",
   "bin": {
