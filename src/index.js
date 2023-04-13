@@ -53,14 +53,7 @@ switch (typeApp) {
 
     if (isCancel(subDomain)) exitProgram();
 
-    const nameFiles = [
-      "docker-compose.yml",
-      "nginx.conf",
-      "composer.dockerfile",
-      "nginx.dockerfile",
-      "php.dockerfile",
-      "resolv.conf",
-    ];
+    const nameFiles = ["docker-compose.yml", "nginx.conf", "php.dockerfile"];
 
     const valuesToReplace = [
       {
